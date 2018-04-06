@@ -3,6 +3,8 @@ const hbs = require('hbs');
 const fs = require('fs');
 var app = express();
 
+const port = process.env.PORT || 3000; //setting the automatic port for heroku
+
 app.use(express.static(__dirname + '/public'));
 
 hbs.registerPartials(__dirname + '/views/partials');
@@ -20,9 +22,9 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use((req, res, next) => {
-    res.render('maintainance.hbs');
-});
+// app.use((req, res, next) => {
+//     res.render('maintainance.hbs');
+// });
 
 
 hbs.registerHelper('getCurrentYear', () => {
@@ -64,4 +66,7 @@ app.get('/bad', (req, res) => {
     });
 });
 
-app.listen(3000);
+// app.listen(3000);
+app.listen(port, () => {
+    console.log(`Server is up on port ${port}`);
+});
